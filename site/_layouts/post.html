@@ -1,0 +1,36 @@
+---
+layout: default
+---
+{%- assign date_format = site.plainwhite.date_format | default: "%b %-d, %Y" -%}
+<div class="post-container">
+  <a class="post-link" href="{{ page.url | relative_url }}">
+    <h2 class="post-title">{{ page.title | escape }}</h2>
+  </a>
+  <div class="post-about" onclick="location.href='/';" style="cursor: pointer;">
+    <div class="author">
+    <img src="{{ "/assets/portfolio.webp" | relative_url }}" alt="{{ site.plainwhite.name }}" class="author-img"/>
+    <div class="author-text">
+      <p>{{ site.plainwhite.name }}</p>
+      <p>{{ site.plainwhite.tagline }}</p>
+      <p>{{ page.date | date: date_format }}</p>
+    </div>
+    </div>
+    <div class="social">
+      <a href="https://github.com/{{ site.plainwhite.social_links.github }}"><li><i class="icon-github-circled"></i></li></a>
+      <a href="https://www.linkedin.com/{{ site.plainwhite.social_links.linkedIn }}"><li><i class="icon-linkedin-squared"></i></li></a>
+      <a href="https://reddit.com/{{ site.plainwhite.social_links.reddit }}"><li><i class="icon-reddit-circled"></i></li></a>
+    </div>
+  </div>
+  <div class="post">
+      {{content}}
+  </div>
+  <div class="post-navigation">
+    {% if page.previous.url %}
+      <a href="{{ page.previous.url }}">&laquo; {{page.previous.title}}</a>
+    {% endif %}
+    <a href="/">Ana Sayfa</a>
+    {% if page.next.url %}
+      <a href="{{ page.next.url }}">{{page.next.title}} &raquo;</a>
+    {% endif %}
+  </div>
+</div>
