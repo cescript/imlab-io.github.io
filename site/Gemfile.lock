@@ -68,7 +68,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll-seo-tag (= 2.1.0)
+  jekyll-seo-tag
   json
   kramdown-math-katex
   kramdown-parser-gfm
