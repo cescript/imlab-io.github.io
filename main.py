@@ -1,9 +1,12 @@
 # import required modules
 # python -m pip install requests
 # python -m pip install gitpython
+# python -m pip install python-frontmatter
 import requests
 import git
 import os
+import frontmatter
+import shutil
 
 # simple curl like method to return js object as output
 def curl(url):
@@ -71,8 +74,12 @@ def get_repositiories_from_organization(organization_name):
 if __name__ == '__main__':
     repos_list = get_repositiories_from_organization('imlab-io')
     clone_dir = 'temp'
+    posts_dir = 'site/_posts'
+    assets_dir = 'site/_assets/post_resources'
+ 
     # make directory to clone repos
-    os.mkdir(clone_dir)
+    if not os.path.isdir(clone_dir):
+        os.mkdir(clone_dir)
     
     # clone repository
     for repo in repos_list:
@@ -80,5 +87,23 @@ if __name__ == '__main__':
         repository_clone_directory = os.path.join(clone_dir, repo['name'])
         
         # make directory and clone into it
-        os.mkdir(repository_clone_directory)
-        git.Repo.clone_from(repo['clone_url'], repository_clone_directory)
+        if os.path.isdir(repository_clone_directory):
+            print('will be pulled later!')
+        else:
+            os.mkdir(repository_clone_directory)
+            git.Repo.clone_from(repo['clone_url'], repository_clone_directory)
+        
+        # set the readme filename
+        readme_path = os.path.join(repository_clone_directory, 'readme.md')
+        
+        # get the content of the readme
+        post = frontmatter.load(readme_path)
+        
+        # copy the cloned content to site
+        post_filename = (post.metadata['date'] + '-' + post.metadata['title'] + '.md').replace(' ', '-')
+        post_path = os.path.join(posts_dir, post_filename)
+        shutil.copyfile(readme_path, post_path)
+        
+        # copy the assets
+        assets_directory = os.path.join(assets_dir, repo['name'])
+        
