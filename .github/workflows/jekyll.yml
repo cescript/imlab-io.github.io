@@ -30,20 +30,20 @@ jobs:
         run: ls -lah
         shell: bash
       - name: List input directory
-          working-directory: ${{github.workspace}}/site/_posts
-          run: ls -lah
-          shell: bash
+        working-directory: ${{github.workspace}}/site/_posts
+        run: ls -lah
+        shell: bash
       - name: Build the site in the jekyll/builder container
         run: |
           docker run \
           -v ${{ github.workspace }}/site:/srv/jekyll -v ${{ github.workspace }}/site/_site:/srv/jekyll/_site \
           jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
       - name: List output directory
-          working-directory: ${{github.workspace}}/_site
-          run: ls -lah
-          shell: bash
+        working-directory: ${{github.workspace}}/_site
+        run: ls -lah
+        shell: bash
       - name: Upload Artifact GitHub Action
-          uses: actions/upload-artifact@v2
-          with:
-            name: github-pages
-            path: ${{github.workspace}}/_site
+        uses: actions/upload-artifact@v2
+        with:
+          name: github-pages
+          path: ${{github.workspace}}/_site
