@@ -1,3 +1,6 @@
 .idea
 temp
 venv
+site/_posts
+site/_site
+site/assets/post_resources

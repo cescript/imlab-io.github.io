@@ -21,6 +21,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
           pip install gitpython
+          pip install python-frontmatter
       - name: Execute py script
         run: |
           python main.py
