@@ -33,7 +33,7 @@ jobs:
         working-directory: ${{github.workspace}}/site/_posts
         run: ls -lah
         shell: bash
-      - uses: helaili/jekyll-action@2.0.5
       - name: Build the site in the jekyll/builder container
+      - uses: helaili/jekyll-action@2.0.5
         with:
           token: ${{ secrets.PAGES_PUSHER_SECRET }}
