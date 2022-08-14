@@ -34,6 +34,6 @@ jobs:
         run: ls -lah
         shell: bash
       - name: Build the site in the jekyll/builder container
-      - uses: helaili/jekyll-action@2.0.5
+        uses: helaili/jekyll-action@2.0.5
         with:
           token: ${{ secrets.PAGES_PUSHER_SECRET }}
